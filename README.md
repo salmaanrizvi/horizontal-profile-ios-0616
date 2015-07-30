@@ -1,7 +1,4 @@
----
-tags: Size_Classes, autolayout, views
-languages: objc
----
+
 # Horizontal Profile
 
 ## Instructions
