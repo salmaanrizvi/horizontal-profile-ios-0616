@@ -27,6 +27,9 @@
 
 @end
 
+NSInteger const APPLE_STANDARD_PADDING = 8;
+NSInteger const MORE_PADDING = 20;
+
 @implementation FISViewController
 
 - (void)viewDidLoad
@@ -44,15 +47,257 @@
     [self setPortraitConstraints];
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Constraint Helpers
+
+-(void) removeAllConstraints
 {
-    [super didReceiveMemoryWarning];
+    [self.view removeConstraints: self.view.constraints];
+    
+    for (UILabel *label in self.myLabels)
+    {
+        [label removeConstraints: label.constraints];
+        label.translatesAutoresizingMaskIntoConstraints = NO;
+    };
+    
+    for (UIImageView *imageView in self.myImageViews)
+    {
+        [imageView removeConstraints: imageView.constraints];
+        imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    [self.myTextView removeConstraints: self.myTextView.constraints];
+    self.myTextView.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
--(void)viewDidLayoutSubviews
+-(void) setPortraitConstraints
 {
-    [super viewDidLayoutSubviews];
+    [self setCoverImageConstraints];
+    [self setProfileImageConstraints];
+    [self setTextLabelConstraints];
+    [self setTextViewConstraints];
 }
+
+#pragma mark - Constraints
+
+-(void) setCoverImageConstraints
+{
+  NSLayoutConstraint *pinToTop =
+      [NSLayoutConstraint constraintWithItem:self.coverImage
+                                   attribute:NSLayoutAttributeTop
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.view
+                                   attribute:NSLayoutAttributeTop
+                                  multiplier:1.0
+                                    constant:0];
+
+  NSLayoutConstraint *setWidth =
+      [NSLayoutConstraint constraintWithItem:self.coverImage
+                                   attribute:NSLayoutAttributeWidth
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.view
+                                   attribute:NSLayoutAttributeWidth
+                                  multiplier:1.0
+                                    constant:0];
+
+  NSLayoutConstraint *setHeight =
+      [NSLayoutConstraint constraintWithItem:self.coverImage
+                                   attribute:NSLayoutAttributeHeight
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.view
+                                   attribute:NSLayoutAttributeHeight
+                                  multiplier:.25
+                                    constant:0];
+
+  NSLayoutConstraint *setCenter =
+      [NSLayoutConstraint constraintWithItem:self.coverImage
+                                   attribute:NSLayoutAttributeCenterX
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.view
+                                   attribute:NSLayoutAttributeCenterX
+                                  multiplier:1
+                                    constant:0];
+
+    // save these guys for later
+  NSLayoutConstraint *setCoverImageHeightLandscape =
+      [NSLayoutConstraint constraintWithItem:self.coverImage
+                                   attribute:NSLayoutAttributeHeight
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.view
+                                   attribute:NSLayoutAttributeHeight
+                                  multiplier:0
+                                    constant:0];
+    
+    self.coverImageHeightLandscape = setCoverImageHeightLandscape;
+    self.coverImageHeightPortrait = setHeight;
+    
+    [self.view addConstraints:@[pinToTop, setWidth, setHeight, setCenter]];
+}
+
+-(void) setProfileImageConstraints
+{
+  NSLayoutConstraint *fromCoverImage =
+      [NSLayoutConstraint constraintWithItem:self.profileImage
+                                   attribute:NSLayoutAttributeTop
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.coverImage
+                                   attribute:NSLayoutAttributeBottom
+                                  multiplier:1.0
+                                    constant:MORE_PADDING];
+
+  NSLayoutConstraint *fromLeftOfView =
+      [NSLayoutConstraint constraintWithItem:self.profileImage
+                                   attribute:NSLayoutAttributeLeft
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.coverImage
+                                   attribute:NSLayoutAttributeLeft
+                                  multiplier:1.0
+                                    constant:MORE_PADDING];
+
+  NSLayoutConstraint *setWidth =
+      [NSLayoutConstraint constraintWithItem:self.profileImage
+                                   attribute:NSLayoutAttributeWidth
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.coverImage
+                                   attribute:NSLayoutAttributeWidth
+                                  multiplier:.25
+                                    constant:0];
+
+  NSLayoutConstraint *setHeight =
+      [NSLayoutConstraint constraintWithItem:self.profileImage
+                                   attribute:NSLayoutAttributeHeight
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.profileImage
+                                   attribute:NSLayoutAttributeWidth
+                                  multiplier:1
+                                    constant:0];
+
+    [self.view addConstraints:@[fromCoverImage, fromLeftOfView, setWidth, setHeight]];
+}
+
+-(void) setTextLabelConstraints
+{
+  NSLayoutConstraint *nameFromRightOfProfilePic =
+      [NSLayoutConstraint constraintWithItem:self.nameLabel
+                                   attribute:NSLayoutAttributeLeft
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.profileImage
+                                   attribute:NSLayoutAttributeRight
+                                  multiplier:1.0
+                                    constant:MORE_PADDING];
+
+  NSLayoutConstraint *classFromRightOfProfilePic =
+      [NSLayoutConstraint constraintWithItem:self.classNameLabel
+                                   attribute:NSLayoutAttributeLeft
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.profileImage
+                                   attribute:NSLayoutAttributeRight
+                                  multiplier:1.0
+                                    constant:MORE_PADDING];
+
+  NSLayoutConstraint *factFromRightOfProfilePic =
+      [NSLayoutConstraint constraintWithItem:self.interestingFactLabel
+                                   attribute:NSLayoutAttributeLeft
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.profileImage
+                                   attribute:NSLayoutAttributeRight
+                                  multiplier:1.0
+                                    constant:MORE_PADDING];
+
+  NSLayoutConstraint *fromTopOfPic =
+      [NSLayoutConstraint constraintWithItem:self.nameLabel
+                                   attribute:NSLayoutAttributeTop
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.profileImage
+                                   attribute:NSLayoutAttributeTop
+                                  multiplier:1.0
+                                    constant:0];
+
+  NSLayoutConstraint *fromTopLabel =
+      [NSLayoutConstraint constraintWithItem:self.classNameLabel
+                                   attribute:NSLayoutAttributeTop
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.nameLabel
+                                   attribute:NSLayoutAttributeBottom
+                                  multiplier:1.0
+                                    constant:APPLE_STANDARD_PADDING];
+
+    NSLayoutConstraint *fromMidLabel =
+        [NSLayoutConstraint constraintWithItem:self.interestingFactLabel
+                                     attribute:NSLayoutAttributeTop
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.classNameLabel
+                                     attribute:NSLayoutAttributeBottom
+                                    multiplier:1.0
+                                      constant:APPLE_STANDARD_PADDING];
+
+    [self.view addConstraints:@[nameFromRightOfProfilePic, classFromRightOfProfilePic, factFromRightOfProfilePic, fromTopOfPic, fromTopLabel, fromMidLabel]];
+}
+
+-(void) setTextViewConstraints
+{
+  NSLayoutConstraint *fromProfilePic =
+      [NSLayoutConstraint constraintWithItem:self.myTextView
+                                   attribute:NSLayoutAttributeTop
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:self.profileImage
+                                   attribute:NSLayoutAttributeBottom
+                                  multiplier:1.0
+                                    constant:MORE_PADDING];
+
+    NSLayoutConstraint *leftOfProfilePic =
+        [NSLayoutConstraint constraintWithItem:self.myTextView
+                                     attribute:NSLayoutAttributeLeft
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.profileImage
+                                     attribute:NSLayoutAttributeLeft
+                                    multiplier:1
+                                      constant:0];
+
+    NSLayoutConstraint *pinBottom =
+        [NSLayoutConstraint constraintWithItem:self.myTextView
+                                     attribute:NSLayoutAttributeBottom
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.view
+                                     attribute:NSLayoutAttributeBottom
+                                    multiplier:1
+                                      constant:(-(MORE_PADDING))];
+
+    NSLayoutConstraint *rightFromLeft =
+        [NSLayoutConstraint constraintWithItem:self.myTextView
+                                     attribute:NSLayoutAttributeRight
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.view
+                                     attribute:NSLayoutAttributeRight
+                                    multiplier:1
+                                      constant:(-(MORE_PADDING))];
+
+    [self.view addConstraints:@[fromProfilePic, leftOfProfilePic, pinBottom, rightFromLeft]];
+    
+    // save these guys for later
+    NSLayoutConstraint *setTextViewTop =
+        [NSLayoutConstraint constraintWithItem:self.myTextView
+                                     attribute:NSLayoutAttributeTop
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.profileImage
+                                     attribute:NSLayoutAttributeTop
+                                    multiplier:1
+                                      constant:0];
+
+    NSLayoutConstraint *setTextViewLeft =
+        [NSLayoutConstraint constraintWithItem:self.myTextView
+                                     attribute:NSLayoutAttributeLeft
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.interestingFactLabel
+                                     attribute:NSLayoutAttributeRight
+                                    multiplier:1
+                                      constant:APPLE_STANDARD_PADDING];
+
+    self.textView6PlusPortrait = @[fromProfilePic, leftOfProfilePic];
+    self.textView6PlusLandscape =@[setTextViewTop, setTextViewLeft];
+}
+
+
+#pragma markr - Orientation Changes
 
 -(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
@@ -90,106 +335,6 @@
     NSLog(@"transitioning to: %@", newCollection);
     
     [self.view layoutSubviews];
-}
-
-
--(void) setCoverImageConstraints
-{
-    NSLayoutConstraint *pinToTop = [NSLayoutConstraint constraintWithItem:self.coverImage attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
-    
-    NSLayoutConstraint *setWidth = [NSLayoutConstraint constraintWithItem:self.coverImage attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeWidth multiplier:1.0 constant:0];
-    
-    NSLayoutConstraint *setHeight = [NSLayoutConstraint constraintWithItem:self.coverImage attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:.25 constant:0];
-    
-    NSLayoutConstraint *setCenter = [NSLayoutConstraint constraintWithItem:self.coverImage attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-    
-    // save these guys for later 
-
-    NSLayoutConstraint *setCIHeightLandscape = [NSLayoutConstraint constraintWithItem:self.coverImage attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeHeight multiplier:0 constant:0];
-    self.coverImageHeightLandscape = setCIHeightLandscape;
-    self.coverImageHeightPortrait = setHeight;
-    
-    [self.view addConstraints:@[pinToTop, setWidth, setHeight, setCenter]];
-}
-
--(void) setProfileImageConstraints
-{
-    NSLayoutConstraint *fromCoverImage = [NSLayoutConstraint constraintWithItem: self.profileImage attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem: self.coverImage attribute:NSLayoutAttributeBottom multiplier:1.0 constant:20];
-    
-    NSLayoutConstraint *fromLeftOfView = [NSLayoutConstraint constraintWithItem: self.profileImage attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem: self.coverImage attribute:NSLayoutAttributeLeft multiplier:1.0 constant:20];
-    
-    NSLayoutConstraint *setWidth = [NSLayoutConstraint constraintWithItem:self.profileImage attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem: self.coverImage attribute:NSLayoutAttributeWidth multiplier: .25 constant:0];
-    
-    NSLayoutConstraint *setHeight = [NSLayoutConstraint constraintWithItem:self.profileImage attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem: self.profileImage attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
-    
-    [self.view addConstraints:@[fromCoverImage, fromLeftOfView, setWidth, setHeight]];
-}
-
--(void) setTextLabelConstraints
-{
-    NSLayoutConstraint *nameFromRightOfProfilePic = [NSLayoutConstraint constraintWithItem:self.nameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImage attribute:NSLayoutAttributeRight multiplier:1.0 constant:20];
-
-    NSLayoutConstraint *classFromRightOfProfilePic = [NSLayoutConstraint constraintWithItem:self.classNameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImage attribute:NSLayoutAttributeRight multiplier:1.0 constant:20];
-
-    NSLayoutConstraint *factFromRightOfProfilePic = [NSLayoutConstraint constraintWithItem:self.interestingFactLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImage attribute:NSLayoutAttributeRight multiplier:1.0 constant:20];
-    
-    NSLayoutConstraint *fromTopOfPic = [NSLayoutConstraint constraintWithItem:self.nameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.profileImage attribute:NSLayoutAttributeTop multiplier:1.0 constant:6];
-    
-    NSLayoutConstraint *fromTopLabel = [NSLayoutConstraint constraintWithItem:self.classNameLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.nameLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:6];
-    
-    NSLayoutConstraint *fromMidLabel = [NSLayoutConstraint constraintWithItem:self.interestingFactLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.classNameLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:6];
-    
-    [self.view addConstraints:@[nameFromRightOfProfilePic, classFromRightOfProfilePic, factFromRightOfProfilePic, fromTopOfPic, fromTopLabel, fromMidLabel]];
-}
-
--(void) setTextViewConstraints
-{
-    NSLayoutConstraint *fromProfilePic = [NSLayoutConstraint constraintWithItem:self.myTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.profileImage attribute:NSLayoutAttributeBottom multiplier:1.0 constant:20];
-    
-    NSLayoutConstraint *leftOfProfilePic = [NSLayoutConstraint constraintWithItem:self.myTextView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.profileImage attribute:NSLayoutAttributeLeft multiplier:1 constant:0];
-    
-    NSLayoutConstraint *pinBottom = [NSLayoutConstraint constraintWithItem:self.myTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:-10];
-    
-    NSLayoutConstraint *rightFromLeft = [NSLayoutConstraint constraintWithItem:self.myTextView attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeRight multiplier:1 constant:-20];
-
-    [self.view addConstraints:@[fromProfilePic, leftOfProfilePic, pinBottom, rightFromLeft]];
-    
-    // save these guys for later
-    NSLayoutConstraint *setTextViewTop = [NSLayoutConstraint constraintWithItem:self.myTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.profileImage attribute:NSLayoutAttributeTop multiplier:1 constant:0];
-
-    NSLayoutConstraint *setTextViewLeft = [NSLayoutConstraint constraintWithItem:self.myTextView attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.interestingFactLabel attribute:NSLayoutAttributeRight multiplier:1 constant:8];
-    
-
-    self.textView6PlusPortrait = @[fromProfilePic, leftOfProfilePic];
-    self.textView6PlusLandscape =@[setTextViewTop, setTextViewLeft];
-}
-
--(void) removeAllConstraints
-{
-    [self.view removeConstraints: self.view.constraints];
-    
-    for (UILabel *label in self.myLabels)
-    {
-        [label removeConstraints: label.constraints];
-        label.translatesAutoresizingMaskIntoConstraints = NO;
-    };
-    
-    for (UIImageView *imageView in self.myImageViews)
-    {
-        [imageView removeConstraints: imageView.constraints];
-        imageView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    
-    [self.myTextView removeConstraints: self.myTextView.constraints];
-    self.myTextView.translatesAutoresizingMaskIntoConstraints = NO;
-}
-
--(void) setPortraitConstraints
-{
-    [self setCoverImageConstraints];
-    [self setProfileImageConstraints];
-    [self setTextLabelConstraints];
-    [self setTextViewConstraints];
 }
 
 @end
