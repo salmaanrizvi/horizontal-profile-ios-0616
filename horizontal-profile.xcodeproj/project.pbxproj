@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30B8F7AA2F22415C95D44EE5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5289C15D60B41DBBC7AADB2 /* Foundation.framework */; };
+		4D55493D1BCC3690001E3D77 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D55493C1BCC3690001E3D77 /* Launch Screen.storyboard */; settings = {ASSET_TAGS = (); }; };
 		7615DE68A7FD408294BF581F /* FISAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DD179C6C4A5A43839ECF32E8 /* FISAppDelegate.m */; };
 		D0D7835FFCD34B79AC2E7477 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E798758BBF044A70BEE06836 /* main.m */; };
 		E15752C0E46D4CEDACD0094B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CFA4DAF6FC9457FA2C246E6 /* Images.xcassets */; };
@@ -31,6 +32,7 @@
 		09CF2CF7400647758DF7FE78 /* horizontal-profile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "horizontal-profile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFA4DAF6FC9457FA2C246E6 /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		43484FA67152489395F54DC3 /* UnitTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UnitTests-Info.plist"; sourceTree = "<group>"; };
+		4D55493C1BCC3690001E3D77 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		6F5DB406E6C94332841A101B /* FISAppDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = FISAppDelegate.h; sourceTree = "<group>"; };
 		855DAAE3806840F795A8F092 /* horizontal-profile-Prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "horizontal-profile-Prefix.pch"; sourceTree = "<group>"; };
 		A361BE65D745413AB2AE4BA0 /* horizontal-profile-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "horizontal-profile-Info.plist"; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				2CFA4DAF6FC9457FA2C246E6 /* Images.xcassets */,
+				4D55493C1BCC3690001E3D77 /* Launch Screen.storyboard */,
 				53BDEF4431974CF08AA68F1C /* Other-Sources */,
 			);
 			path = Resources;
@@ -208,7 +211,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = FIS;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "The Flatiron School";
 			};
 			buildConfigurationList = 3BF3F05C5A5A409AA7D9C94E /* Build configuration list for PBXProject "horizontal-profile" */;
@@ -236,6 +239,7 @@
 			files = (
 				E24CC6401B98C81D0021826F /* Blake_Farenthold.jpg in Resources */,
 				E24CC63E1B98C7E70021826F /* stuffmomnevertoldyou.jpg in Resources */,
+				4D55493D1BCC3690001E3D77 /* Launch Screen.storyboard in Resources */,
 				E15752C0E46D4CEDACD0094B /* Images.xcassets in Resources */,
 				E24CC63A1B98C7DF0021826F /* Main.storyboard in Resources */,
 			);
@@ -318,6 +322,7 @@
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -342,7 +347,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -367,6 +372,8 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "horizontal-profile/Resources/Other-Sources/horizontal-profile-Info.plist";
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatiron.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -385,6 +392,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "horizontal-profile/Resources/Other-Sources/horizontal-profile-Info.plist";
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = (
 					"-DNS_BLOCK_ASSERTIONS=1",
 					"$(inherited)",
@@ -393,6 +401,7 @@
 					"-DNS_BLOCK_ASSERTIONS=1",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatiron.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -411,6 +420,7 @@
 				);
 				GCC_PREFIX_HEADER = "UnitTests/Resources/UnitTests-Prefix.pch";
 				INFOPLIST_FILE = "UnitTests/Resources/UnitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatiron.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -430,6 +440,7 @@
 				);
 				GCC_PREFIX_HEADER = "UnitTests/Resources/UnitTests-Prefix.pch";
 				INFOPLIST_FILE = "UnitTests/Resources/UnitTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatiron.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -478,7 +489,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
