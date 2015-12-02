@@ -21,3 +21,5 @@
   * Check out [Joe's blog](http://joemburgess.com/2014/10/26/size-classes-in-ios-8/) for more on working with Size Classes in iOS
   * You may have to remove constraints to get everything to work on landscape
   * Listening to rotation events in iOS 8 is as easy as overriding the `-(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator` method.
+
+<a href='https://learn.co/lessons/horizontal-profile' data-visibility='hidden'>View this lesson on Learn.co</a>
