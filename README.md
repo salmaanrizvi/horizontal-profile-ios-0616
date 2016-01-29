@@ -22,4 +22,4 @@
   * You may have to remove constraints to get everything to work on landscape
   * Listening to rotation events in iOS 8 is as easy as overriding the `-(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator` method.
 
-<a href='https://learn.co/lessons/horizontal-profile' data-visibility='hidden'>View this lesson on Learn.co</a>
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/horizontal-profile' title='Horizontal Profile'>Horizontal Profile</a> on Learn.co and start learning to code for free.</p>
